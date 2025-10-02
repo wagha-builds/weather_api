@@ -3,11 +3,13 @@ import pandas as pd
 
 app = Flask(__name__) # Creating a website object.
 
+stations = pd.read_csv("data_small/stations.txt", skiprows=17)
+stations = stations[["STAID", "STANAME                                 "]]
 
 # When the user visits the url + "{app route url}" input, it will call the function below it.
 @app.route("/") # This line is a decorator.
 def home():
-    return render_template("home.html")
+    return render_template("home.html", data=stations.to_html())
 
 
 # <> is a special syntax of flask used to describe the URL pattern.
